@@ -51,7 +51,8 @@ namespace WindowsFormsApp1
                 "Surname, Department FROM Employee;", conn);
             using (conn)
             {
-                conn.Open();
+                if (!(conn.State==ConnectionState.Open))
+                    conn.Open();
                 SqlDataReader rd = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(rd);

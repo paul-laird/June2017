@@ -34,8 +34,9 @@ namespace WindowsFormsApp1
             cmd.Parameters.AddWithValue("@CO",txtCo.Text);
             cmd.Parameters.AddWithValue("@C",txtCountry.Text);
             cmd.Parameters.AddWithValue("@DEP",txtDept.Text);
-            {
-                conn.Open();
+            using (conn){
+                if (!(conn.State == ConnectionState.Open))
+                    conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }

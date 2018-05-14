@@ -17,8 +17,8 @@ namespace WindowsFormsApp1
         int EN;
         public Modify(SqlConnection c, int e)
         {
-            conn = c;
             InitializeComponent();
+            conn = c;
             EN = e;
         }
 
@@ -42,8 +42,10 @@ namespace WindowsFormsApp1
             cmd.Parameters.AddWithValue("@C", txtCountry.Text);
             cmd.Parameters.AddWithValue("@DEP", txtDept.Text);
             cmd.Parameters.AddWithValue("@EN", EN);
+            using (conn)
             {
-                conn.Open();
+                if (!(conn.State == ConnectionState.Open))
+                    conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
